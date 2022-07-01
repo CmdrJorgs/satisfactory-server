@@ -1,9 +1,10 @@
 #! /bin/bash
 
-$FILE_TO_CHANGE=/config/wg0.conf
+FILE_TO_CHANGE="/config/wg0.conf"
 
 if grep -Fxq "$DROPPED_NETWORKS" $FILE_TO_CHANGE
 then
+    echo "doing nothing"
 else
     sed -i'.bak' '5i\
     PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -I FORWARD -i %i -d DROPPED_NETWORKS -j DROP; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE\
