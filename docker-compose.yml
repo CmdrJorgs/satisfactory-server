@@ -1,0 +1,72 @@
+# source: https://github.com/wolveix/satisfactory-server
+# anticipate about 10 GB of RAM and 10 GB of HDD Space
+version: '3'
+services:
+    test-server:
+        container_name: ping
+        hostname: ping
+        build: ./test-server
+        # uncomment ports if you need to test the test server
+        #        ports:
+        #            - 8080:80
+        restart: unless-stopped
+        networks:
+            internal:
+                ipv4_address: 10.1.1.4
+#    satisfactory-server:
+#        container_name: 'satisfactory-server'
+#        hostname: 'satisfactory-server'
+#        build: ./steam-satisfactory
+#        ports:
+#            - '7777:7777/udp'
+#            - '15000:15000/udp'
+#            - '15777:15777/udp'
+#        volumes:
+#            - './volumes/satisfactory:/config'
+#        environment:
+#            - MAXPLAYERS=4
+#            - PGID=1000
+#            - PUID=1000
+#            - STEAMBETA=false
+#        restart: unless-stopped
+#        networks:
+#            internal:
+#                ipv4_address: 10.1.1.2
+    vpn:
+        image: ghcr.io/linuxserver/wireguard:v1.0.20210914-ls73
+        container_name: wireguard
+        cap_add:
+            - NET_ADMIN
+            - SYS_MODULE
+#            - ALL
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=America/Denver
+            - SERVERPORT=47998 # this is the WAN port, or the port my Router is listening on
+            - PEERS=self,friend,friend2
+            - PEERDNS=auto
+            - INTERNAL_SUBNET=10.1.2.0
+            - ALLOWEDIPS=10.1.0.0/16
+            - DROPPED_NETWORKS=192.168.2.1/24
+        volumes:
+            - ./scripts:/config/custom-cont-init.d
+            - ./volumes/vpn/config:/config
+#            - /lib/modules:/lib/modules
+        ports:
+            - 47997:51820/udp # 47997 is the LAN port, or port my host is listening on
+        sysctls:
+            - net.ipv4.conf.all.src_valid_mark=1
+        restart: unless-stopped
+        networks:
+            internal:
+                ipv4_address: 10.1.1.3
+networks:
+    internal:
+        name: internal
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 10.1.1.0/24
+                  gateway: 10.1.1.1
