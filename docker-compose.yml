@@ -13,25 +13,26 @@ services:
         networks:
             internal:
                 ipv4_address: 10.1.1.4
-#    satisfactory-server:
-#        container_name: 'satisfactory-server'
-#        hostname: 'satisfactory-server'
+    satisfactory-server:
+        container_name: 'satisfactory-server'
+        hostname: 'satisfactory-server'
+        image: 'wolveix/satisfactory-server:v1.2.4'
 #        build: ./steam-satisfactory
-#        ports:
-#            - '7777:7777/udp'
-#            - '15000:15000/udp'
-#            - '15777:15777/udp'
-#        volumes:
-#            - './volumes/satisfactory:/config'
-#        environment:
-#            - MAXPLAYERS=4
-#            - PGID=1000
-#            - PUID=1000
-#            - STEAMBETA=false
-#        restart: unless-stopped
-#        networks:
-#            internal:
-#                ipv4_address: 10.1.1.2
+        ports:
+            - '7777:7777/udp'
+            - '15000:15000/udp'
+            - '15777:15777/udp'
+        volumes:
+            - './volumes/satisfactory:/config'
+        environment:
+            - MAXPLAYERS=32
+            - PGID=1000
+            - PUID=1000
+            - STEAMBETA=false
+        restart: unless-stopped
+        networks:
+            internal:
+                ipv4_address: 10.1.1.2
     vpn:
         image: ghcr.io/linuxserver/wireguard:v1.0.20210914-ls73
         container_name: wireguard
