@@ -1,5 +1,6 @@
 #! /bin/bash
 FILE_TO_CHANGE="/config/wg0.conf"
+# watch those wrist rockets
 
 if [[ $DROPPED_NETWORKS ]]
 then
