@@ -1,5 +1,4 @@
-# source: https://github.com/wolveix/satisfactory-server
-# anticipate about 10 GB of RAM and 10 GB of HDD Space
+# anticipate about 10 GB of RAM and 10 GB of HDD Space for satisfactory
 version: '3'
 services:
     test-server:
