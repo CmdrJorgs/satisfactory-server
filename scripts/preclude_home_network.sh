@@ -1,6 +1,6 @@
 #! /bin/bash
+#FILE_TO_CHANGE="/config/templates/server.conf"
 FILE_TO_CHANGE="/config/wg0.conf"
-# watch those wrist rockets
 
 if [[ $DROPPED_NETWORKS ]]
 then
@@ -8,8 +8,10 @@ then
   then
       echo "no networks to add to dropped networks"
   else
-      sed '/PostUp/d' $FILE_TO_CHANGE
-      sed '/PostDown/d' $FILE_TO_CHANGE
+      sed -i '/PostUp/d' $FILE_TO_CHANGE
+
+      sed -i '/PostDown/d' $FILE_TO_CHANGE
+
       sed -i '5i\
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -I FORWARD -i %i -d DROPPED_NETWORKS -j DROP; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE\
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -i %i -d DROPPED_NETWORKS -j DROP; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE\
