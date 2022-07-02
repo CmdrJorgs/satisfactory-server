@@ -3,8 +3,8 @@
 version: '3'
 services:
     test-server:
-        container_name: ping
-        hostname: ping
+        container_name: ping-server
+        hostname: ping-server
         build: ./test-server
         # uncomment ports if you need to test the test server
         #        ports:
@@ -14,8 +14,8 @@ services:
             internal:
                 ipv4_address: 10.1.1.4
     satisfactory-server:
-        container_name: 'satisfactory-server'
-        hostname: 'satisfactory-server'
+        container_name: 'satisfactory'
+        hostname: 'satisfactory'
         image: 'wolveix/satisfactory-server:v1.2.4'
 #        build: ./steam-satisfactory
         ports:
@@ -35,7 +35,7 @@ services:
                 ipv4_address: 10.1.1.2
     vpn:
         image: ghcr.io/linuxserver/wireguard:v1.0.20210914-ls73
-        container_name: wireguard
+        container_name: gaming-network-vpn
         cap_add:
             - NET_ADMIN
             - SYS_MODULE
