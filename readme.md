@@ -18,3 +18,10 @@ inside this folder, run `docker-compose up`. See also Docker Desktop for easier 
 
 The test server is just to help verify that clients are connected. So going to 10.1.1.4 on a browser would show "hello world" if they are connected (if the network configuration isn't changed)
 
+# to use the save editor
+https://satisfactory-calculator.com/
+
+1. shut down docker
+2. select the latest file
+3. edit on website
+4. replace on `saves/` and `backups/`
