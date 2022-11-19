@@ -15,7 +15,7 @@ services:
     satisfactory-server:
         container_name: 'satisfactory'
         hostname: 'satisfactory'
-        image: 'wolveix/satisfactory-server:v1.2.4'
+        image: 'wolveix/satisfactory-server:v1.3.3'
 #        build: ./steam-satisfactory
         ports:
             - '7777:7777/udp'

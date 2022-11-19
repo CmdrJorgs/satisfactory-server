@@ -24,4 +24,4 @@ https://satisfactory-calculator.com/
 1. shut down docker
 2. select the latest file
 3. edit on website
-4. replace on `saves/` and `backups/`
+4. replace oen `saves/` and `backups/`
